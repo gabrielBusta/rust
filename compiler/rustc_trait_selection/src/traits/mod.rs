@@ -22,6 +22,7 @@ mod structural_match;
 mod util;
 pub mod wf;
 
+use crate::errors::DumpVTableEntries;
 use crate::infer::outlives::env::OutlivesEnvironment;
 use crate::infer::{InferCtxt, TyCtxtInferExt};
 use crate::traits::error_reporting::InferCtxtExt as _;
@@ -748,8 +749,11 @@ fn dump_vtable_entries<'tcx>(
     trait_ref: ty::PolyTraitRef<'tcx>,
     entries: &[VtblEntry<'tcx>],
 ) {
-    let msg = format!("vtable entries for `{}`: {:#?}", trait_ref, entries);
-    tcx.sess.struct_span_err(sp, &msg).emit();
+    tcx.sess.emit_err(DumpVTableEntries {
+        span: sp,
+        trait_ref: trait_ref.to_string(),
+        entries: format!("{:#?}", entries),
+    });
 }
 
 fn own_existential_vtable_entries<'tcx>(

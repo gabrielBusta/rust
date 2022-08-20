@@ -21,6 +21,8 @@
 #![feature(if_let_guard)]
 #![feature(never_type)]
 #![recursion_limit = "512"] // For rustdoc
+#![deny(rustc::untranslatable_diagnostic)]
+#![deny(rustc::diagnostic_outside_of_impl)]
 
 #[macro_use]
 extern crate rustc_macros;
@@ -35,5 +37,6 @@ extern crate rustc_middle;
 extern crate smallvec;
 
 pub mod autoderef;
+pub mod errors;
 pub mod infer;
 pub mod traits;
