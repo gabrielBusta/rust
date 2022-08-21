@@ -35,7 +35,7 @@ pub struct AutoDerefReachedRecursionLimit {
 pub struct EmptyOnClauseInOnUnimplemented {
     #[primary_span]
     #[label(trait_selection::empty_on_clause_in_rustc_on_unimplemented_label)]
-    pub span: Span
+    pub span: Span,
 }
 
 #[derive(SessionDiagnostic)]
@@ -43,7 +43,7 @@ pub struct EmptyOnClauseInOnUnimplemented {
 pub struct InvalidOnClauseInOnUnimplemented {
     #[primary_span]
     #[label(trait_selection::invalid_on_clause_in_rustc_on_unimplemented_label)]
-    pub span: Span
+    pub span: Span,
 }
 
 #[derive(SessionDiagnostic)]
@@ -52,5 +52,5 @@ pub struct NoValueInOnUnimplemented {
     #[primary_span]
     #[label(trait_selection::no_value_in_rustc_on_unimplemented_label)]
     #[note(trait_selection::no_value_in_rustc_on_unimplemented_note)]
-    pub span: Span
+    pub span: Span,
 }

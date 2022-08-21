@@ -831,12 +831,11 @@ impl<'tcx> AutoTraitFinder<'tcx> {
                                 Ok(None) => {
                                     let tcx = self.tcx;
                                     let def_id = unevaluated.def.did;
-                                    let reported = tcx.sess.emit_err(
-                                        UnableToConstructConstantValue {
+                                    let reported =
+                                        tcx.sess.emit_err(UnableToConstructConstantValue {
                                             span: tcx.def_span(def_id),
                                             unevaluated: format!("{:?}", unevaluated),
-                                        },
-                                    );
+                                        });
                                     Err(ErrorHandled::Reported(reported))
                                 }
                                 Err(err) => Err(err),

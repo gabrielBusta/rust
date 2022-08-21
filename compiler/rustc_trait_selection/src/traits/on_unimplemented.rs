@@ -8,7 +8,9 @@ use rustc_parse_format::{ParseMode, Parser, Piece, Position};
 use rustc_span::symbol::{kw, sym, Symbol};
 use rustc_span::{Span, DUMMY_SP};
 
-use crate::errors::{EmptyOnClauseInOnUnimplemented, InvalidOnClauseInOnUnimplemented, NoValueInOnUnimplemented};
+use crate::errors::{
+    EmptyOnClauseInOnUnimplemented, InvalidOnClauseInOnUnimplemented, NoValueInOnUnimplemented,
+};
 
 #[derive(Clone, Debug)]
 pub struct OnUnimplementedFormatString(Symbol);
@@ -57,17 +59,9 @@ impl<'tcx> OnUnimplementedDirective {
         } else {
             let cond = item_iter
                 .next()
-                .ok_or_else(|| {
-                    tcx.sess.emit_err(EmptyOnClauseInOnUnimplemented {
-                        span
-                    })
-                })?
+                .ok_or_else(|| tcx.sess.emit_err(EmptyOnClauseInOnUnimplemented { span }))?
                 .meta_item()
-                .ok_or_else(|| {
-                    tcx.sess.emit_err(InvalidOnClauseInOnUnimplemented {
-                        span
-                    })
-                })?;
+                .ok_or_else(|| tcx.sess.emit_err(InvalidOnClauseInOnUnimplemented { span }))?;
             attr::eval_condition(cond, &tcx.sess.parse_sess, Some(tcx.features()), &mut |cfg| {
                 if let Some(value) = cfg.value && let Err(guar) = parse_value(value) {
                     errored = Some(guar);
@@ -129,11 +123,7 @@ impl<'tcx> OnUnimplementedDirective {
             }
 
             // nothing found
-            tcx.sess.emit_err(
-                NoValueInOnUnimplemented {
-                    span: item.span(),
-                }
-            );
+            tcx.sess.emit_err(NoValueInOnUnimplemented { span: item.span() });
         }
 
         if let Some(reported) = errored {
