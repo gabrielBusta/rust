@@ -1,6 +1,6 @@
+use crate::errors::AutoDerefReachedRecursionLimit;
 use crate::traits::query::evaluate_obligation::InferCtxtExt;
 use crate::traits::{self, TraitEngine};
-use crate::errors::ReachedRecursionLimitDeref;
 use rustc_hir as hir;
 use rustc_infer::infer::InferCtxt;
 use rustc_middle::ty::{self, TraitRef, Ty, TyCtxt};
@@ -222,7 +222,7 @@ pub fn report_autoderef_recursion_limit_error<'tcx>(tcx: TyCtxt<'tcx>, span: Spa
         Limit(0) => Limit(2),
         limit => limit * 2,
     };
-    tcx.sess.emit_err(ReachedRecursionLimitDeref {
+    tcx.sess.emit_err(AutoDerefReachedRecursionLimit {
         span,
         ty: format!("{:?}", ty),
         suggested_limit: suggested_limit.to_string(),
