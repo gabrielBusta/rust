@@ -19,11 +19,11 @@ pub struct UnableToConstructConstantValue {
 }
 
 #[derive(SessionDiagnostic)]
-#[help(trait_selection::auto_deref_reached_recursion_limit_help)]
+#[help]
 #[error(trait_selection::auto_deref_reached_recursion_limit, code = "E0055")]
 pub struct AutoDerefReachedRecursionLimit {
     #[primary_span]
-    #[label(trait_selection::auto_deref_reached_recursion_limit_label)]
+    #[label]
     pub span: Span,
     pub ty: String,
     pub suggested_limit: String,
@@ -34,7 +34,7 @@ pub struct AutoDerefReachedRecursionLimit {
 #[error(trait_selection::empty_on_clause_in_rustc_on_unimplemented, code = "E0232")]
 pub struct EmptyOnClauseInOnUnimplemented {
     #[primary_span]
-    #[label(trait_selection::empty_on_clause_in_rustc_on_unimplemented_label)]
+    #[label]
     pub span: Span,
 }
 
@@ -42,7 +42,7 @@ pub struct EmptyOnClauseInOnUnimplemented {
 #[error(trait_selection::invalid_on_clause_in_rustc_on_unimplemented, code = "E0232")]
 pub struct InvalidOnClauseInOnUnimplemented {
     #[primary_span]
-    #[label(trait_selection::invalid_on_clause_in_rustc_on_unimplemented_label)]
+    #[label]
     pub span: Span,
 }
 
@@ -50,7 +50,7 @@ pub struct InvalidOnClauseInOnUnimplemented {
 #[error(trait_selection::no_value_in_rustc_on_unimplemented, code = "E0232")]
 pub struct NoValueInOnUnimplemented {
     #[primary_span]
-    #[label(trait_selection::no_value_in_rustc_on_unimplemented_label)]
-    #[note(trait_selection::no_value_in_rustc_on_unimplemented_note)]
+    #[label]
+    #[note]
     pub span: Span,
 }
