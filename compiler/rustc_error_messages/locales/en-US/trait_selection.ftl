@@ -14,4 +14,4 @@ invalid_on_clause_in_rustc_on_unimplemented = invalid `on`-clause in `#[rustc_on
 
 no_value_in_rustc_on_unimplemented = this attribute must have a valid value
     .label = expected value here
-    .note = "eg `#[rustc_on_unimplemented(message="foo")]`"
+    .note = eg `#[rustc_on_unimplemented(message="foo")]`

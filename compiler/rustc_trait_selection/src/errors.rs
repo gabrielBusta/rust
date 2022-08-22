@@ -48,9 +48,9 @@ pub struct InvalidOnClauseInOnUnimplemented {
 
 #[derive(SessionDiagnostic)]
 #[diag(trait_selection::no_value_in_rustc_on_unimplemented, code = "E0232")]
+#[note]
 pub struct NoValueInOnUnimplemented {
     #[primary_span]
     #[label]
-    #[note]
     pub span: Span,
 }
