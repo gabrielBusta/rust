@@ -2,7 +2,7 @@ use rustc_macros::SessionDiagnostic;
 use rustc_span::Span;
 
 #[derive(SessionDiagnostic)]
-#[error(trait_selection::dump_vtable_entries)]
+#[diag(trait_selection::dump_vtable_entries)]
 pub struct DumpVTableEntries {
     #[primary_span]
     pub span: Span,
@@ -11,7 +11,7 @@ pub struct DumpVTableEntries {
 }
 
 #[derive(SessionDiagnostic)]
-#[error(trait_selection::unable_to_construct_constant_value)]
+#[diag(trait_selection::unable_to_construct_constant_value)]
 pub struct UnableToConstructConstantValue {
     #[primary_span]
     pub span: Span,
@@ -20,7 +20,7 @@ pub struct UnableToConstructConstantValue {
 
 #[derive(SessionDiagnostic)]
 #[help]
-#[error(trait_selection::auto_deref_reached_recursion_limit, code = "E0055")]
+#[diag(trait_selection::auto_deref_reached_recursion_limit, code = "E0055")]
 pub struct AutoDerefReachedRecursionLimit {
     #[primary_span]
     #[label]
@@ -31,7 +31,7 @@ pub struct AutoDerefReachedRecursionLimit {
 }
 
 #[derive(SessionDiagnostic)]
-#[error(trait_selection::empty_on_clause_in_rustc_on_unimplemented, code = "E0232")]
+#[diag(trait_selection::empty_on_clause_in_rustc_on_unimplemented, code = "E0232")]
 pub struct EmptyOnClauseInOnUnimplemented {
     #[primary_span]
     #[label]
@@ -39,7 +39,7 @@ pub struct EmptyOnClauseInOnUnimplemented {
 }
 
 #[derive(SessionDiagnostic)]
-#[error(trait_selection::invalid_on_clause_in_rustc_on_unimplemented, code = "E0232")]
+#[diag(trait_selection::invalid_on_clause_in_rustc_on_unimplemented, code = "E0232")]
 pub struct InvalidOnClauseInOnUnimplemented {
     #[primary_span]
     #[label]
@@ -47,7 +47,7 @@ pub struct InvalidOnClauseInOnUnimplemented {
 }
 
 #[derive(SessionDiagnostic)]
-#[error(trait_selection::no_value_in_rustc_on_unimplemented, code = "E0232")]
+#[diag(trait_selection::no_value_in_rustc_on_unimplemented, code = "E0232")]
 pub struct NoValueInOnUnimplemented {
     #[primary_span]
     #[label]
