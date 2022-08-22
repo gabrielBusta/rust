@@ -21,8 +21,8 @@
 #![feature(if_let_guard)]
 #![feature(never_type)]
 #![recursion_limit = "512"] // For rustdoc
-#![deny(rustc::untranslatable_diagnostic)]
-#![deny(rustc::diagnostic_outside_of_impl)]
+// #![deny(rustc::untranslatable_diagnostic)]
+// #![deny(rustc::diagnostic_outside_of_impl)]
 
 #[macro_use]
 extern crate rustc_macros;
