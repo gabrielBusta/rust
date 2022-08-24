@@ -59,7 +59,7 @@ pub struct NoValueInOnUnimplemented {
 
 pub struct NegativePositiveConflict<'a> {
     pub impl_span: Span,
-    pub trait_desc: &'a String,
+    pub trait_desc: &'a str,
     pub self_desc: &'a Option<String>,
     pub negative_impl_span: Result<Span, Symbol>,
     pub positive_impl_span: Result<Span, Symbol>,
@@ -71,19 +71,20 @@ impl SessionDiagnostic<'_> for NegativePositiveConflict<'_> {
         sess: &ParseSess,
     ) -> rustc_errors::DiagnosticBuilder<'_, ErrorGuaranteed> {
         let mut diag = sess.struct_err(fluent::trait_selection::negative_positive_conflict);
-        // diag.set_arg("trait_desc", self.trait_desc);
-        // diag.set_arg(
-        //     "self_desc",
-        //     self.self_desc.clone().map_or_else(String::new, |ty| format!(" for type `{}`", ty)),
-        // );
+        diag.set_arg("trait_desc", self.trait_desc);
+        diag.set_arg(
+            "self_desc",
+            self.self_desc.clone().map_or_else(String::new, |ty| format!(" for type `{}`", ty)),
+        );
         diag.set_span(self.impl_span);
         diag.code(rustc_errors::error_code!(E0751));
         match self.negative_impl_span {
             Ok(span) => {
-                diag.span_label(span, "negative implementation here");
+                diag.span_label(span, fluent::trait_selection::negative_implementation_here);
             }
             Err(cname) => {
-                diag.note(&format!("negative implementation in crate `{}`", cname));
+                diag.note(fluent::trait_selection::negative_implementation_in_crate);
+                diag.set_arg("cname", cname.to_string());
             }
         }
         match self.positive_impl_span {
@@ -92,6 +93,7 @@ impl SessionDiagnostic<'_> for NegativePositiveConflict<'_> {
             }
             Err(cname) => {
                 diag.note(&format!("positive implementation in crate `{}`", cname));
+                diag.set_arg("cname", cname.to_string());
             }
         }
         diag

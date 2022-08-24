@@ -17,3 +17,7 @@ trait_selection_no_value_in_rustc_on_unimplemented = this attribute must have a 
     .note = eg `#[rustc_on_unimplemented(message="foo")]`
 
 trait_selection_negative_positive_conflict = found both positive and negative implementation of trait `{$trait_desc}`{$self_desc}:
+    .negative_implementation_here = negative implementation here
+    .negative_implementation_in_crate = negative implementation in crate `{$cname}`
+    .positive_implementation_here = negative implementation here
+    .positive_implementation_in_crate = negative implementation in crate `{$cname}`
