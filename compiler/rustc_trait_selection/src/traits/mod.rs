@@ -13,6 +13,7 @@ mod fulfill;
 pub mod misc;
 mod object_safety;
 mod on_unimplemented;
+pub mod outlives_bounds;
 mod project;
 pub mod query;
 pub(crate) mod relationships;
@@ -579,9 +580,16 @@ fn is_impossible_method<'tcx>(
     });
 
     tcx.infer_ctxt().ignoring_regions().enter(|ref infcx| {
-        let mut fulfill_ctxt = <dyn TraitEngine<'_>>::new(tcx);
-        fulfill_ctxt.register_predicate_obligations(infcx, predicates_for_trait);
-        !fulfill_ctxt.select_all_or_error(infcx).is_empty()
+        for obligation in predicates_for_trait {
+            // Ignore overflow error, to be conservative.
+            if let Ok(result) = infcx.evaluate_obligation(&obligation)
+                && !result.may_apply()
+            {
+                return true;
+            }
+        }
+
+        false
     })
 }
 

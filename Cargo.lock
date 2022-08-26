@@ -1280,7 +1280,6 @@ name = "error_index_generator"
 version = "0.0.0"
 dependencies = [
  "rustdoc",
- "walkdir",
 ]
 
 [[package]]
@@ -4421,9 +4420,11 @@ dependencies = [
  "rustc_ast",
  "rustc_ast_pretty",
  "rustc_data_structures",
+ "rustc_errors",
  "rustc_hir",
  "rustc_hir_pretty",
  "rustc_lexer",
+ "rustc_macros",
  "rustc_middle",
  "rustc_session",
  "rustc_span",
